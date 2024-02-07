@@ -19,7 +19,7 @@ function criarTarefa(tarefa) {
     li.id = gerarId();
     li.innerHTML = `<input type="checkbox" class='checkbox'>
                     <span> ${tarefa}</span>
-                    <input type="button" value="-" onclick="removerTarefa(${li.id})">`
+                    <input type="button" class="remover-btn" value="-" onclick="removerTarefa(${li.id})">`
     return li;
 }
 
