@@ -47,3 +47,10 @@ function removerTarefa(id) {
     const delTarefa = document.getElementById(id)
     delTarefa ? delTarefa.parentNode.removeChild(delTarefa) : window.alert('Tarefa não encontrada')
 }
+
+// limpar tabela
+function limparTarefas(){
+    const tabelaTarefa = document.querySelector('table#resultado-tbl');
+    tabelaTarefa.innerHTML = '';
+    tarefaInpt.value = ''; // limpa o input
+}
