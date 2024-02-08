@@ -30,6 +30,11 @@ input[type="button"]:hover {
     background-color: #a93226;
 }
 
+.adicionar-btn {
+    padding: 8px;
+    border-radius: 5px;
+}
+
 .remover-btn {
     width: 14px;
     height: 14px;
@@ -39,30 +44,7 @@ input[type="button"]:hover {
     line-height: 1px;
 }
 
-.adicionar-btn {
-    padding: 8px;
-    border-radius: 5px;
-}
-
 input[type="text"] {
     padding: 8px;
     margin-right: 8px;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-li {
-    margin-bottom: 10px;
-}
-
-.checkbox:checked+span {
-    text-decoration: line-through;
-    color: #888;
-}
-
-.checkbox:not(:checked)+span {
-    text-decoration: none;
 }

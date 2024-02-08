@@ -2,41 +2,55 @@ let counter = 1;
 
 function adicionar() {
     const tarefaInpt = document.querySelector('input#insere-tarefa');
-    const tarefaList = document.querySelector('ul#lista-tarefa');
-
-    (tarefaInpt.value.length !== 0) ? adicionarTarefa(tarefaInpt, tarefaList) : window.alert('tarefa vazia');
-
+    const tabelaTarefa = document.querySelector('table#resultado-tbl');
+    /**
+     * Tarefa 1
+     * ['T', 'a', 'r', 'e', 'f', 'a', ' ', '1']
+     *   0    1    2    3    4    5    6    7  
+     * 
+     */
+    (tarefaInpt.value.length !== 0) ? addTarefa(tarefaInpt, tabelaTarefa) : window.alert('tarefa vazia');
+   
 }
 
-// gera id para os itsens da lista
+// gera id para os itens da tabela
 function gerarId() {
     return counter++
 }
 
-// cria tarefa para ser incluida na lista de tarefas;
-function criarTarefa(tarefa) {
-    const li = document.createElement('li');
-    li.id = gerarId();
-    li.innerHTML = `<input type="checkbox" class='checkbox'>
-                    <span> ${tarefa}</span>
-                    <input type="button" class="remover-btn" value="-" onclick="removerTarefa(${li.id})">`
-    return li;
-}
+// adiciona uma nova tarefa
+function addTarefa(tarefaInpt, tabelaTarefa){
+    const novaLinha = tabelaTarefa.insertRow(-1); // -1 insere a nova linha no final da tabela
+    novaLinha.id = gerarId();
+    //Define <td>
+    const coluna1 = novaLinha.insertCell(0);
+    const coluna2 = novaLinha.insertCell(1);
+    const coluna3 = novaLinha.insertCell(2);
 
-// adiciona tarefa na lista
-function adicionarTarefa(tarefaInpt, tarefaList) {
-    const novaTarefa = criarTarefa(tarefaInpt.value);
-    tarefaList.appendChild(novaTarefa); // adiciona a tarefa na lista de tarefas.
+    //Preenche <td>
+    coluna1.innerHTML = `<input type="checkbox" class='checkbox' onchange="riscarTarefa(this, ${novaLinha.id})">`
+    coluna2.innerHTML = `<span>${tarefaInpt.value}</span>`;
+    coluna3.innerHTML = `<input type="button" class="remover-btn" value="-" onclick="removerTarefa(${novaLinha.id})">` 
+    
     tarefaInpt.value = ''; // limpa o input
 }
 
-//remove tarefa da lista
-function removerTarefa(id) {
-    const tarefaList = document.querySelector('ul#lista-tarefa');
-    const rmvTarefa = document.getElementById(id)
+// risca uma tarefa com base no comportamento do checkbox
+function riscarTarefa(checkbox, id) {
+    const trElement = checkbox.parentElement.parentElement;
+    if (checkbox.checked) {
+        trElement.classList.add('checked');
+        document.getElementById(id).style.textDecoration = 'line-through';
+        document.getElementById(id).style.color ='#888';
+    } else {
+        trElement.classList.remove('checked');
+        document.getElementById(id).style.textDecoration = 'none';
+        document.getElementById(id).style.color ='#333';
+    }
+}
 
-    if (rmvTarefa) { // valida se o item a ser removido está na lista
-        tarefaList.removeChild(rmvTarefa);
-        return window.alert('tarefa removida');
-    };
+// remove uma tarefa da tabela
+function removerTarefa(id) {
+    const delTarefa = document.getElementById(id)
+    delTarefa ? delTarefa.parentNode.removeChild(delTarefa) : window.alert('Tarefa não encontrada')
 }
