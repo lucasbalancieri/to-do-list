@@ -20,14 +20,15 @@ function gerarId() {
 
 // adiciona uma nova tarefa
 function addTarefa(tarefaInpt, tabelaTarefa){
+    // insere <tr>
     const novaLinha = tabelaTarefa.insertRow(-1); // -1 insere a nova linha no final da tabela
     novaLinha.id = gerarId();
-    //Define <td>
+    // insere <td>
     const coluna1 = novaLinha.insertCell(0);
     const coluna2 = novaLinha.insertCell(1);
     const coluna3 = novaLinha.insertCell(2);
 
-    //Preenche <td>
+    // preenche <td>
     coluna1.innerHTML = `<input type="checkbox" class='checkbox' onchange="riscarTarefa(this, ${novaLinha.id})">`
     coluna2.innerHTML = `<span>${tarefaInpt.value}</span>`;
     coluna3.innerHTML = `<input type="button" class="remover-btn" value="-" onclick="removerTarefa(${novaLinha.id})">` 
@@ -37,16 +38,8 @@ function addTarefa(tarefaInpt, tabelaTarefa){
 
 // risca uma tarefa com base no comportamento do checkbox
 function riscarTarefa(checkbox, id) {
-    const trElement = checkbox.parentElement.parentElement;
-    if (checkbox.checked) {
-        trElement.classList.add('checked');
-        document.getElementById(id).style.textDecoration = 'line-through';
-        document.getElementById(id).style.color ='#888';
-    } else {
-        trElement.classList.remove('checked');
-        document.getElementById(id).style.textDecoration = 'none';
-        document.getElementById(id).style.color ='#333';
-    }
+    const tr = checkbox.parentElement.parentElement;
+    checkbox.checked ? tr.classList.add('checked') : tr.classList.remove('checked')
 }
 
 // remove uma tarefa da tabela
