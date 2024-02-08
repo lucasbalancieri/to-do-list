@@ -51,6 +51,7 @@ function removerTarefa(id) {
 // limpar tabela
 function limparTarefas(){
     const tabelaTarefa = document.querySelector('table#resultado-tbl');
+    const tarefaInpt = document.querySelector('input#insere-tarefa');
     tabelaTarefa.innerHTML = '';
     tarefaInpt.value = ''; // limpa o input
 }
